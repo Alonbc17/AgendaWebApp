@@ -15,7 +15,7 @@ direccion nvarchar(255) not null,
 creado_por nvarchar(50)not null,
 fecha_creacion datetime not null default GETDATE(),  
 fecha_modificacion datetime,
-modificado_por nvarchar(50)not null,
+modificado_por nvarchar(50) ,
 );
 go
 
@@ -55,10 +55,10 @@ AS
 BEGIN
 update Contactos 
 set  nombre = @nombre,
- @apellido=@apellido,
- @correo=@correo,
- @telefono=@telefono,
- @direccion=@direccion
+ apellido=@apellido,
+ correo=@correo,
+ telefono=@telefono,
+ direccion=@direccion
 where id=@id;
 END;
 GO
@@ -68,3 +68,17 @@ AS
 BEGIN
 delete from Contactos where id=@id;
 END;
+------------------------------------
+EXEC sp_CrearContacto 'Karla', 'Brenes', 'kbrenesc@castrocarazo.ac.cr', '87213232','PZ','system';
+
+select * from Contactos;
+
+EXEC sp_ActualizarContacto 2, 'Tatiana', 'Brenes', 'kbrenesc@castrocarazo.ac.cr', '87213232', 'PZ', 'system';
+
+select * from Contactos;
+
+EXEC sp_LeerContacto;
+
+EXEC sp_EliminarContacto 2;
+
+select * from Contactos;
